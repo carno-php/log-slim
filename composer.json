@@ -1,0 +1,16 @@
+{
+  "name": "carno-php/log-slim",
+  "license": "MIT",
+  "require": {
+    "php": "^7.1",
+    "psr/log": "~1.0"
+  },
+  "autoload": {
+    "files": ["logger.php"]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
