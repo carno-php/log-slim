@@ -5,6 +5,9 @@
     "php": "^7.1",
     "psr/log": "~1.0"
   },
+  "suggest": {
+    "carno-php/log": "Fully featured logging support"
+  },
   "autoload": {
     "files": ["logger.php"]
   },
