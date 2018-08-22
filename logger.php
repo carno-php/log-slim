@@ -41,13 +41,25 @@ if (!class_exists('Carno\\Log\\Logger') && !function_exists('logger')) {
              */
             public function log($level, $message, array $context = []) : void
             {
+                $arguments = '';
+
+                array_walk($context, function ($item, $key) use (&$arguments) {
+                    $arguments .= sprintf(
+                        '%s=%s',
+                        $key,
+                        is_array($item)
+                            ? json_encode($item, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                            : (string) $item
+                    ) . ',';
+                });
+
                 echo sprintf(
-                    '[%s] (%s) %s -- %s :: %s',
+                    '[%s] (%s) %s -- %s :: [%s]',
                     date('H:i:s'),
                     $this->scene,
                     strtoupper($level),
                     $message,
-                    json_encode($context, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+                    $arguments
                 ), PHP_EOL;
             }
         };
