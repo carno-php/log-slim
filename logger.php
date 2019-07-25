@@ -26,12 +26,18 @@ if (!class_exists('Carno\\Log\\Logger') && !function_exists('logger')) {
             private $scene = 'log';
 
             /**
+             * @var bool
+             */
+            private $enabled = true;
+
+            /**
              * anonymous constructor.
              * @param string $scene
              */
             public function __construct(string $scene)
             {
                 $this->scene = $scene;
+                $this->enabled = PHP_SAPI === 'cli';
             }
 
             /**
@@ -41,6 +47,10 @@ if (!class_exists('Carno\\Log\\Logger') && !function_exists('logger')) {
              */
             public function log($level, $message, array $context = []) : void
             {
+                if (!$this->enabled) {
+                    return;
+                }
+
                 $arguments = '';
 
                 array_walk($context, function ($item, $key) use (&$arguments) {
